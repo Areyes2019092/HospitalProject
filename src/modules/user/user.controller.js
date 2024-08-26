@@ -44,22 +44,3 @@ export const register = async (req, res) => {
 
 
 
-/*
-export const login = async(req, res) =>{
-    try{
-     const { DPI, password } = req.body;
-     var user = await User.findOne({DPI: DPI});
-     if(!user){
-         return res.status(400).json({msg: "User is not registered"})
-     }
-     const log = bcryptjs.compareSync(password, user.password);
-     if(!log){
-         return res.status(400).json({msg: "Wrong data"});
-     }
-     const token = await generateJWT(user.id);
-     res.status(200).json({msg: `Welcome, your token is: ${token}`});
-    }catch(error){
-     return res.status(500).json(error.message)
-    }
- }
- */

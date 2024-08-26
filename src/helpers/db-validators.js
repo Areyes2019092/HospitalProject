@@ -77,7 +77,7 @@ export const urgencyLNExists = async (name) => {
 export const illnessExists = async (name) => {
     const exist = await Illness.findOne({name});
     if (exist){
-        throw new Error('This Urgency level already exists');
+        throw new Error('This Illness already exists');
     }
 };
 

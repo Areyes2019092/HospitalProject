@@ -3,7 +3,7 @@ import { Router } from "express";
 import { validateFields } from "../../middlewares/validate-fields.js";
 import { validateJWT } from "../../middlewares/validate-jwt.js";
 import { illnessExists, urgencyLNExists } from "../../helpers/db-validators.js";
-import { registerIllness } from "./illness.controller.js";
+import { registerIllness, getAllIllness } from "./illness.controller.js";
 const router = Router();
 
 router.post(
@@ -20,11 +20,11 @@ router.post(
 );
 
 router.get(
-    "/",
+    "/get",
     [
         validateJWT,
         validateFields
-    ]
+    ], getAllIllness
 )
 
 export default router;
