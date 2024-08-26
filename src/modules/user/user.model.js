@@ -2,7 +2,7 @@ import {Schema, model} from "mongoose"
 
 const UserSchema = new Schema({
     DPI: {
-        type: String,
+        type: Number,
         required: true,
         unique: [true, "DPI number is already registered"]
     },
@@ -23,23 +23,20 @@ const UserSchema = new Schema({
         type: String,
         required: [true, "Phone number is required"]
     },
-    password:{
-        type: String,
-        required: [true, "Password is required"],
-    },
     role:{
         type: String,
-        enum: ["DOCTOR", "NURSE", "PATIENT", "OTHER"]
+        default: "PATIENT"
     },
     status:{
         type: Boolean,
         default: true
-    },
-    admin: {
-        type: Boolean,
-        default: false
-    },
-
+    }
 })
 
-export default model( "User" ,UserSchema)
+UserSchema.methods.toJSON = function () {
+    const { __v, password, _id, ...user } = this.toObject();
+    user.uid = _id;
+    return user;
+}
+
+export default model( "User" , UserSchema)

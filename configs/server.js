@@ -3,7 +3,9 @@ import cors from "cors";
 import express from "express";
 import helmet from "helmet";
 import morgan from "morgan";
+import Personal from "../src/modules/personal/personal.routes.js";
 import User from "../src/modules/user/user.routes.js";
+import UrgencyLevel from "../src/modules/urgencyLevel/urgencyLevel.routes.js";
 import { dbConnection } from "./mongo.js";
 
 class Server{
@@ -11,6 +13,8 @@ class Server{
         this.app = express();
         this.port = process.env.PORT;
         this.userPath = "/hospital/user";
+        this.personalPath = "/hospital/personal";
+        this.urgencyPath = "/hospital/urgency";
         this.middlewares();
         this.connectDB();
         this.routes();
@@ -34,6 +38,8 @@ class Server{
 
       routes(){
         this.app.use(this.userPath, User);
+        this.app.use(this.personalPath, Personal);
+        this.app.use(this.urgencyPath, UrgencyLevel);
       }
 
       listen(){

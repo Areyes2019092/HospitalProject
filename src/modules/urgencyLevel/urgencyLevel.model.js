@@ -1,17 +1,26 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
 const UrgencySchema = mongoose.Schema({
     name: {
         type: String,
-        enum: ["MINOR","MID", "SEVERE"]
-    }
-    
-})
+        required: [true, "The urgency name is required"],
+        validate:{
+            validator: function(v){
+                return /^[A-Z]+$/.test(v);
+            },
+            message: props => `${props.value}The category must be writen in CAPITAL LETTERS`
+        }
+    },
+    status:{
+        type: Boolean,
+        default: true,
+    },
+});
 
 UrgencySchema.methods.toJSON = function(){
-    const { __v, _id, ...urgency } = this.toObject();
-    urgency.id = _id;
-    return urgency  
+    const { __v, _id, status , ...urgency_ } = this.toObject();
+    urgency_.uid = _id;
+    return urgency_;
 }
 
 export default mongoose.model("Urgency", UrgencySchema);

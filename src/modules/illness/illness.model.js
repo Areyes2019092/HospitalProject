@@ -10,10 +10,9 @@ const IllnessSchema = new Schema({
         required: [true, "Illness must have a description"]
     },
     urgencyLevel:{
-        type: Schema.Types.ObjectId,
-        ref: ""
+        type: String,
+        required: [true, "The urgency level of the illness is necessary"]
     }
-
 });
 
 IllnessSchema.methods.toJSON = function(){
