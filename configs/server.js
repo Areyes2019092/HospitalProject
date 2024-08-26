@@ -7,6 +7,7 @@ import Personal from "../src/modules/personal/personal.routes.js";
 import User from "../src/modules/user/user.routes.js";
 import UrgencyLevel from "../src/modules/urgencyLevel/urgencyLevel.routes.js";
 import illness from "../src/modules/illness/illness.routes.js";
+import option from "../src/formRelated/Option/option.routes.js"
 import Form from "../src/formRelated/zForm/form.routes.js";
 import { dbConnection } from "./mongo.js";
 
@@ -18,7 +19,7 @@ class Server{
         this.personalPath = "/hospital/personal";
         this.urgencyPath = "/hospital/urgency";
         this.illnessPath = "/hospital/illness";
-        this.formPath = "/hospital/form"
+        this.optionPath = "/hospital/form/option"
         this.middlewares();
         this.connectDB();
         this.routes();
@@ -45,7 +46,7 @@ class Server{
         this.app.use(this.personalPath, Personal);
         this.app.use(this.urgencyPath, UrgencyLevel);
         this.app.use(this.illnessPath, illness);
-        this.app.use(this.formPath, Form);
+        this.app.use(this.optionPath, option)
       }
 
       listen(){

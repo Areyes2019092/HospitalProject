@@ -26,7 +26,11 @@ export const login = async(req, res) =>{
 export const register = async (req, res) => {
     const { DPI, passportNumber, name, lastName, urgencyLevel , phone, password, role } = req.body;
     try {
-        
+        if(!Personal.DPI && !Personal.passportNumber){
+            return res.status(400).json({
+                msg: "You must provide at least once between DPI or Passport Number"
+            })
+        }
         let admin = false;
         if (role === "OTHER") {
             if (password === "!2M0nat!!#cms_rSsg30&&&") {

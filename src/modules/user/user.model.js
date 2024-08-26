@@ -3,13 +3,13 @@ import {Schema, model} from "mongoose"
 const UserSchema = new Schema({
     DPI: {
         type: Number,
-        required: true,
-        unique: [true, "DPI number is already registered"]
+        unique: [true, "DPI number is already registered"],
+        sparse: true
     },
     passportNumber:{
         type: String,
-        required: false,
-        unique: [true, "Passport number is already registered"]
+        unique: [true, "Passport number is already registered"],
+        sparse: true
     },
     name:{
         type: String,
