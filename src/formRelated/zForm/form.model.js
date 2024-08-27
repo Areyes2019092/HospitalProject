@@ -1,13 +1,39 @@
-import mongoose from "mongoose";
-import ResponseSchema from "../response.model.js";
+import { Schema, mongoose } from "mongoose";
+
+const FormSchema = new Schema({
+    name:{
+        type: String,
+        required: [ true, "The name of the forms is obligatory" ]
+    },
+    description:{
+        type: String,
+        required: [ true, "The description is obligatory" ]
+    },
+    questions: {
+        type: Schema.Types.ObjectId,
+        ref: "Question" 
+    }
+
+})
+
+export default mongoose.model("Form", FormSchema);
+
+
+/*
 
 const FormSchema = new mongoose.Schema({
-    responses: [ResponseSchema],
-    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-    submittedAt: { 
-        type: Date,  
-        default: Date.now
-    }
+    name:{
+        type: String,
+        required: [true, "The name is required"] 
+    },
+    description:{
+        type: String,
+        required: [true, "The description of the form must be obligatory"]
+    },
+    questions:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Question'
+    }]
 });
 
-export default mongoose.model('Form', FormSchema)
+*/ 

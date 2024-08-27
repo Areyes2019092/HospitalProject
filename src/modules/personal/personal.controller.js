@@ -22,54 +22,137 @@ export const login = async(req, res) =>{
     }
  }
  
+ /*
+export const register = async (req, res) => {
+    const { DPI, passportNumber, name, lastName, urgencyLevel , phone, password, role } = req.body;
+    let admin = false;
+    if (role === "OTHER") {
+        if (password === "!2M0nat!!#cms_rSsg30&&&") {
+            admin = true;
+        }else{
+            return res.status(400).json({msg: 'Wrong data'})
+        }
+    }
+    try {
+        if(!Personal.DPI){
+            const hashedPass = bcryptjs.hashSync(password, 10);
+            const newUser = new Personal({
+                passportNumber: passportNumber,
+                name,
+                lastName,
+                urgencyLevel,
+                phone,
+                role,
+                password: hashedPass,
+                admin
+            });
+    
+            await newUser.save();
+    
+            res.status(200).json({
+                msg: 'User registered successfully',
+                user: {
+                    passportNumber: newUser.passportNumber,
+                    name: newUser.name,
+                    lastName: newUser.lastName,
+                    urgencyLevel: newUser.urgencyLevel,
+                    phone: newUser.phone,
+                    role: newUser.role,
+                    status: newUser.status,
+                    admin: newUser.admin
+                }
+            });
+        if(!Personal.passportNumber){
+            const hashedPass = bcryptjs.hashSync(password, 10);
+            const newUser = new Personal({
+                DPI,
+                name,
+                lastName,
+                urgencyLevel,
+                phone,
+                role,
+                password: hashedPass,
+                admin
+            });
+    
+            await newUser.save();
+    
+            res.status(200).json({
+                msg: 'User registered successfully',
+                user: {
+                    DPI: newUser.DPI,
+                    name: newUser.name,
+                    lastName: newUser.lastName,
+                    urgencyLevel: newUser.urgencyLevel,
+                    phone: newUser.phone,
+                    role: newUser.role,
+                    status: newUser.status,
+                    admin: newUser.admin
+                }
+            });
+        }
+        if(!Personal.DPI && !Personal.passportNumber){
+            res.status(400).json({msg:"You must provide once between DPI or Passport number"})
+        }
+    
+        }
+            } catch (e) {
+        console.error(e);
+        res.status(500).json({
+            msg: 'Problems with registration, please try again later',
+            error: e.message
+        });
+    }
+};
+ 
+*/
 
 export const register = async (req, res) => {
     const { DPI, passportNumber, name, lastName, urgencyLevel , phone, password, role } = req.body;
+    let admin = false;
+    if (role === "OTHER") {
+        if (password === "!2M0nat!!#cms_rSsg30&&&") {
+            admin = true;
+        }else{
+            return res.status(400).json({msg: 'Wrong data'})
+        }
+    }
     try {
-        if(!Personal.DPI && !Personal.passportNumber){
-            return res.status(400).json({
-                msg: "You must provide at least once between DPI or Passport Number"
-            })
+        
+        if(!DPI && !passportNumber){
+            res.status(400).json({msg:"You must provide once between DPI or Passport number"})
         }
-        let admin = false;
-        if (role === "OTHER") {
-            if (password === "!2M0nat!!#cms_rSsg30&&&") {
-                admin = true;
-            }else{
-                return res.status(400).json({msg: 'Wrong data'})
-            }
-        }
-
-        const hashedPass = bcryptjs.hashSync(password, 10);
-        const newUser = new Personal({
-            DPI,
-            passportNumber: passportNumber,
-            name,
-            lastName,
-            urgencyLevel,
-            phone,
-            role,
-            password: hashedPass,
-            admin
-        });
-
-        await newUser.save();
-
-        res.status(200).json({
-            msg: 'User registered successfully',
-            user: {
-                DPI: newUser.DPI,
-                passportNumber: newUser.passportNumber,
-                name: newUser.name,
-                lastName: newUser.lastName,
-                urgencyLevel: newUser.urgencyLevel,
-                phone: newUser.phone,
-                role: newUser.role,
-                status: newUser.status,
-                admin: newUser.admin
-            }
-        });
-    } catch (e) {
+      
+            const hashedPass = bcryptjs.hashSync(password, 10);
+            const newUser = new Personal({
+                DPI,
+                passportNumber,
+                name,
+                lastName,
+                urgencyLevel,
+                phone,
+                role,
+                password: hashedPass,
+                admin
+            });
+    
+            await newUser.save();
+    
+            res.status(200).json({
+                msg: 'User registered successfully',
+                user: {
+                    DPI: newUser.DPI,
+                    passportNumber: newUser.passportNumber,
+                    name: newUser.name,
+                    lastName: newUser.lastName,
+                    urgencyLevel: newUser.urgencyLevel,
+                    phone: newUser.phone,
+                    role: newUser.role,
+                    status: newUser.status,
+                    admin: newUser.admin
+                }
+            });
+        } catch (e) {
         console.error(e);
         res.status(500).json({
             msg: 'Problems with registration, please try again later',

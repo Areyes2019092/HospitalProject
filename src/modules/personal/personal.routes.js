@@ -19,7 +19,7 @@ router.post(
 router.post(
     "/register",
     [
-        check("DPI", "DPI i required").not().isEmpty(),
+        check("DPI"),
         check("passportNumber"),
         check("name","Name is required").not().isEmpty(),
         check("lastName", "Last Name is required").not().isEmpty(),

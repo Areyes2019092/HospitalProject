@@ -1,5 +1,4 @@
-import express from 'express'
-import { createOption } from './option.controller.js'
+import express from 'express';
 import { validateJWT } from '../../middlewares/validate-jwt.js';
 import { validateFields } from '../../middlewares/validate-fields.js';
 
@@ -10,7 +9,7 @@ router.post(
     [
         validateJWT,
         validateFields
-    ], createOption
+    ]
 )
 
 export default router;

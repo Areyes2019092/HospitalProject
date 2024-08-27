@@ -1,42 +1,62 @@
-import Form from "./form.model.js";
+import Question from "../Question/question.model.js"
+import Option from "../Option/option.model.js"
+import Form from "./form.model.js"
 
-export const submitForm = async (req, res) => {
-    try {
-        const { responses, userId } = req.body;
 
-        const newForm = new Form({
-            responses,
-            userId
-        });
+/*
+Mongoose's populate is a powerful feature that allows you to automatically replace a path in a document with documents from 
+another collection. 
+This is akin to a SQL join, but it's a part of Mongoose's API for MongoDB, a NoSQL database.
 
-        await newForm.save();
 
-        // Calculate the total score and percentage
-        let totalScore = 0;
-        let maxScore = 0;
-
-        responses.forEach(response => {
-            totalScore += response.selectedOption.value;
-            maxScore += 6; // Assuming max value per question is 5
-        });
-
-        const percentage = (totalScore / maxScore) * 100;
-
-        let result;
-        if (percentage >= 80) {
-            result = "Terrible";
-        } else if (percentage >= 60) {
-            result = "Poor";
-        } else if (percentage >= 40) {
-            result = "Average";
-        } else if (percentage >= 20) {
-            result = "Good";
-        } else {
-            result = "Excelent";
-        }
-
-        res.status(200).json({ result, percentage });
-    } catch (error) {
-        res.status(500).json({ msg: 'Error submitting form', error: error.message });
+*/
+export const createForm = async(req, res) =>{
+    try{
+        const { name, description, questions } = req.body;
+        const formNode = new Form({ name, description,questions });
+        await formNode.save();
+        res.status(200).json({msg:"Form created successfully", form})
+    }catch(error){
+        res.status(500).json({msg: "Internal Error 500", error: error.message});
     }
-};
+}
+
+export const getForms = async (req, res) =>{
+    try{
+        const formsVar  = await Form.find().populate('questions')
+        res.status(200).json(formsVar)
+    }catch(error){
+        return res.status(500).json({msg:"Internal Error 500", error: error.message})
+    }
+}
+
+export const calculateResult = async(req, res) =>{
+    try{
+        const { formId, selectedOptions } = req.body;
+        const form = await Form.findById(formId).populate({
+            path: 'questions',
+            populate: { path: 'options' },
+        });
+
+        let totalScore = 0;
+        selectedOptions.forEach(optionId =>{
+            const option = form.questions.flatMap(q => q.options).find(opt => opt.id === optionId);
+            if(option){
+                totalScore += option.value;
+            }
+        });
+        let result;
+        if(totalScore < 20){
+            result = 'MINOR';
+        }else if(totalScore < 40){
+            result = 'MID';
+        }else{
+            result = 'SEVERE';
+        }
+        res.status(200).json({totalScore, result});
+    }catch(error){
+        res.status(500).json({msg: "Internal Server 500", error: error.message});
+    }
+}
+
+

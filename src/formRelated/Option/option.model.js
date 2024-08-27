@@ -1,16 +1,21 @@
-import {Schema, model} from "mongoose"
+import { Schema, mongoose } from "mongoose";
 
 const OptionSchema = new Schema({
-    text: String,
-    value: Number
-});
+    name:{
+        type: String,
+        required: [true, "The name of the option is required"]
+    },
+    value:{
+        type: Number,
+        required: [true, "The value of the option is required"]
+    },
+    question:{
+        type: Schema.Types.ObjectId,
+        ref: "Category",
+        required: [true, "The question id is required"]
+    }
+})
 
-/*
-OptionSchema.methods.toJSON = function () {
-    const { __v, ...option } = this.toObject();
-    option.uid = _id;
-    return option;
-}
-*/
+export default mongoose.model("Option", OptionSchema)
 
-export default OptionSchema
+

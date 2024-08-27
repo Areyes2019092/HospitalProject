@@ -1,16 +1,16 @@
 
-import {Schema, SchemaType, model} from "mongoose"
+import {Schema, model} from "mongoose"
 
 const PersonalSchema = new Schema({
     DPI: {
         type: String,
-        required: true,
-        unique: [true, "DPI number is already registered"]
+        required: false,
+        sparse: true
     },
     passportNumber:{
         type: String,
         required: false,
-        unique: [true, "Passport number is already registered"]
+        sparse: true
     },
     name:{
         type: String,

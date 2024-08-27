@@ -1,18 +1,21 @@
-import {Schema, model} from "mongoose"
-import OptionSchema from "../Option/option.model.js";
+import { Schema, mongoose } from "mongoose";
 
 const QuestionSchema = new Schema({
-    text: String,
-    options:[OptionSchema]
-});
+    questionName:{
+        type: String,
+        required: true
+    },
+    options:{
+        type: Schema.Types.ObjectId,
+        ref: "Option"
+    },
+    form:{
+        type: Schema.Types.ObjectId,
+        ref: "Form"
+    }
+})
 
-export default moongose.model('Question', QuestionSchema)
+export default mongoose.model("Question", QuestionSchema)
 
-/*
-QuetionSchema.methods.toJSON = function () {
-    const { __v, ...question } = this.toObject();
-    question.uid = _id;
-    return question;
-}
 
-*/
+
