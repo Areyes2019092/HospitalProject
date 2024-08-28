@@ -34,33 +34,4 @@ export const getForms = async (req, res) =>{
     }
 }
 
-export const calculateResult = async(req, res) =>{
-    try{
-        const { formId, selectedOptions } = req.body;
-        const form = await Form.findById(formId).populate({
-            path: 'questions',
-            populate: { path: 'options' },
-        });
-
-        let totalScore = 0;
-        selectedOptions.forEach(optionId =>{
-            const option = form.questions.flatMap(q => q.options).find(opt => opt.id === optionId);
-            if(option){
-                totalScore += option.value;
-            }
-        });
-        let result;
-        if(totalScore < 20){
-            result = 'MINOR';
-        }else if(totalScore < 40){
-            result = 'MID';
-        }else{
-            result = 'SEVERE';
-        }
-        res.status(200).json({totalScore, result});
-    }catch(error){
-        res.status(500).json({msg: "Internal Server 500 calculateResult", error: error.message});
-    }
-}
-
 
