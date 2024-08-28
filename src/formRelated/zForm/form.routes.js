@@ -1,3 +1,4 @@
+
 import { Router} from 'express';
 import { check } from 'express-validator';
 import { validateFields } from '../../middlewares/validate-fields.js';
@@ -15,8 +16,8 @@ router.post(
 router.post(
     "/postForm",
     [
-        validateFields
-    ], createForm
+        createForm 
+    ]
 )
 router.get(
     "/getForm",

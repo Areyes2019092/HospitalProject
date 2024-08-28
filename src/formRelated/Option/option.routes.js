@@ -1,14 +1,21 @@
 import express from 'express';
-import { validateJWT } from '../../middlewares/validate-jwt.js';
+import { Router } from 'express';
 import { validateFields } from '../../middlewares/validate-fields.js';
+import { createOption, getOptions } from './option.controller.js';
 
-const router = express.Router();
+const router = Router();
 
 router.post(
     '/options',
     [
-        validateJWT,
         validateFields
+    ], createOption
+)
+
+router.get(
+    "/:questionId",
+    [
+        getOptions
     ]
 )
 

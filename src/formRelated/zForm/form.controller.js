@@ -10,10 +10,11 @@ This is akin to a SQL join, but it's a part of Mongoose's API for MongoDB, a NoS
 
 
 */
+
 export const createForm = async(req, res) =>{
     try{
         const { name, description, questions } = req.body;
-        const formNode = new Form({ name, description,questions });
+        const formNode = new Form({ name, description, questions });
         await formNode.save();
         res.status(200).json({msg:"Form created successfully", formNode})
     }catch(error){
@@ -23,7 +24,10 @@ export const createForm = async(req, res) =>{
 
 export const getForms = async (req, res) =>{
     try{
-        const formsVar  = await Form.find().populate('questions')
+        const formsVar  = await Form.find().populate({
+            path: 'questions',
+            populate: { path: 'options' }
+        })
         res.status(200).json(formsVar)
     }catch(error){
         return res.status(500).json({msg:"Internal Error 500 getForms", error: error.message})

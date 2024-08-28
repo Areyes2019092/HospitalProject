@@ -5,13 +5,14 @@ const QuestionSchema = new Schema({
         type: String,
         required: true
     },
-    options:{
+    options:[{
         type: Schema.Types.ObjectId,
         ref: "Option"
-    },
+    }],
     form:{
         type: Schema.Types.ObjectId,
-        ref: "Form"
+        ref: "Form",
+        required: true
     }
 })
 

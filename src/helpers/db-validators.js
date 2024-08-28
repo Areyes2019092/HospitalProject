@@ -2,6 +2,9 @@ import User from "../modules/user/user.model.js";
 import Personal from "../modules/personal/personal.model.js";
 import UrgencyLevel from "../modules/urgencyLevel/urgencyLevel.model.js";
 import Illness from "../modules/illness/illness.model.js";
+import Question from "../formRelated/Question/question.model.js";
+import Form from "../formRelated/zForm/form.model.js";
+
 
 /*******************     User     *******************/
 
@@ -82,3 +85,12 @@ export const illnessExists = async (name) => {
 };
 
 
+
+/******************  Form  ******************/
+
+export const questionNameExists = async (questionName) => {
+    const exist = await Question.findOne({questionName});
+    if (exist){
+        throw new Error('This question already exists');
+    }
+};
