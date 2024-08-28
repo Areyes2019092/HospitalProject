@@ -15,9 +15,9 @@ export const createForm = async(req, res) =>{
         const { name, description, questions } = req.body;
         const formNode = new Form({ name, description,questions });
         await formNode.save();
-        res.status(200).json({msg:"Form created successfully", form})
+        res.status(200).json({msg:"Form created successfully", formNode})
     }catch(error){
-        res.status(500).json({msg: "Internal Error 500", error: error.message});
+        res.status(500).json({msg: "Internal Error 500 createForm Controller", error: error.message});
     }
 }
 
@@ -26,7 +26,7 @@ export const getForms = async (req, res) =>{
         const formsVar  = await Form.find().populate('questions')
         res.status(200).json(formsVar)
     }catch(error){
-        return res.status(500).json({msg:"Internal Error 500", error: error.message})
+        return res.status(500).json({msg:"Internal Error 500 getForms", error: error.message})
     }
 }
 
@@ -55,7 +55,7 @@ export const calculateResult = async(req, res) =>{
         }
         res.status(200).json({totalScore, result});
     }catch(error){
-        res.status(500).json({msg: "Internal Server 500", error: error.message});
+        res.status(500).json({msg: "Internal Server 500 calculateResult", error: error.message});
     }
 }
 
