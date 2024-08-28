@@ -15,7 +15,7 @@ export const getQuestions = async (req, res) => {
     try{
         const { formId } = req.params;
         const getQuetions = await Question.find({ form: formId }).populate('options');
-        res.status(200).json(getQuestions)
+        res.status(200).json({msg:"Questions are: ",getQuestions})
     }catch(error){
         return res.status(500).json({msg: "Internal Error 500 getQuestions controller", error: error.message})
     }
