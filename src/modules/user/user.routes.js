@@ -7,7 +7,7 @@ import { validateFields } from "../../middlewares/validate-fields.js";
 const router = Router();
 
 router.post(
-    "/register",
+    "/",
     [
         validateJWT,
         check("DPI", "DPI i required").not().isEmpty(),

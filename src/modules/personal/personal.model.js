@@ -20,10 +20,6 @@ const PersonalSchema = new Schema({
         type: String,
         required: [true, "The last name is required"]
     },
-    urgencyLevel:{
-        type: String,
-        required: [true,"This urgency level does not exist"]
-    },
     phone:{
         type: String,
         required: [true, "Phone number is required"]
@@ -36,6 +32,11 @@ const PersonalSchema = new Schema({
         type: String,
         enum: ["DOCTOR", "NURSE", "OTHER"]
     },
+    urgencyLevel:[{
+        type: Schema.Types.ObjectId,
+        ref: 'Urgency',
+        required: [ true, 'Urgency Level is necessary' ]
+    }],
     status:{
         type: Boolean,
         default: true

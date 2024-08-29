@@ -1,7 +1,17 @@
 import Result from "./result.model.js";
 import Form from "../zForm/form.model.js";
+import User from "../../modules/user/user.model.js"
 import Option from "../Option/option.model.js";
 
+
+export const getResult = async(req, res) => {
+    try{
+        const getResults = await Result.find().populate({path: 'userId'}).populate({path: 'formId'}).populate({path: 'selectedOptionsId'});
+        res.status(200).json({getResults});
+    }catch(e){
+        return res.status(500).json({msg: "Internal Error 500 getResult result controller"})
+    }
+}
 
 
 export const calculateResult = async(req, res) =>{
@@ -50,49 +60,3 @@ export const calculateResult = async(req, res) =>{
 
 
 
-
-
-
-
-
-/*
-try {
-        const { formId, selectedOptions, userId } = req.body;
-
-        // Find the form and populate the questions and their options
-        const form = await Form.findById(formId).populate({
-            path: 'questions',
-            populate: {
-                path: 'options',
-            },
-        });
-
-        // Calculate the total score based on selected options
-        let totalScore = 0;
-
-        selectedOptions.forEach(optionId => {
-            const option = form.questions.flatMap(q => q.options).find(opt => opt.id === optionId);
-            if (option) {
-                totalScore += option.value;
-            }
-        });
-
-        // Determine the result based on the total score
-        let result;
-        if (totalScore < 50) {
-            result = 'Low';
-        } else if (totalScore < 100) {
-            result = 'Medium';
-        } else {
-            result = 'High';
-        }
-
-        // (Optional) Save the response to the database
-        const response = new Response({ userId, formId, selectedOptions, totalScore, result });
-        await response.save();
-
-        // Send back the calculated result
-        res.status(200).json({ totalScore, result });
-
-
-*/

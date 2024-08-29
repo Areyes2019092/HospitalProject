@@ -6,15 +6,14 @@ import { createForm, getForms} from './form.controller.js';
 
 const router = Router();
 
-
 router.post(
-    "/postForm",
+    "/",
     [
         createForm 
     ]
 )
 router.get(
-    "/getForm",
+    "/",
     [
         validateFields
     ], getForms

@@ -11,6 +11,14 @@ const UrgencySchema = mongoose.Schema({
             message: props => `${props.value}The category must be writen in CAPITAL LETTERS`
         }
     },
+    personals:[{
+        type: Schema.Types.ObjectId,
+        ref: 'Personal'
+    }],
+    illnesses:[{
+        type: Schema.Types.ObjectId,
+        ref: 'Illness'
+    }],
     status:{
         type: Boolean,
         default: true,

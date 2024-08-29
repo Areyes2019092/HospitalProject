@@ -10,7 +10,7 @@ export const getCategories = async(req, res) => {
         return res.status(400).json({msg:"User cant do this action"})
     }
     try{
-    const categories = await urgencyLevelModel.find({status: true});
+    const categories = await urgencyLevelModel.find({status: true}).populate({path:'personals'}).populate({path: 'illnesses'});
     res.status(200).json({categories});
     }catch(error){
         return res.status(500).json(error.message)

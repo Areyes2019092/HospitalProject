@@ -6,7 +6,7 @@ import { createOption, getOptions } from './option.controller.js';
 const router = Router();
 
 router.post(
-    '/options',
+    '/',
     [
         validateFields
     ], createOption

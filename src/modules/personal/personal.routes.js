@@ -21,12 +21,6 @@ router.post(
     [
         check("DPI"),
         check("passportNumber"),
-        check("name","Name is required").not().isEmpty(),
-        check("lastName", "Last Name is required").not().isEmpty(),
-        check("urgencyLevel","Urgency Level is required").not().isEmpty(),
-        check("urgencyLevel").custom(urgencyLNExists),
-        check("phone", "Phone is required").not().isEmpty(),
-        check("password", "password is required").not().isEmpty(),
         check("role", "Role must be one of them DOCTOR, PATIENT, NURSE or OTHER").isIn(["DOCTOR", "NURSE", "OTHER"]),
         validateFields
     ], register

@@ -1,5 +1,6 @@
 import { generateJWT } from "../../helpers/JWTGenerator.js";
 import Illness from "./illness.model.js";
+import urgencyLevelModel from "../urgencyLevel/urgencyLevel.model.js";
 
 export const registerIllness = async(req, res) =>{
     const allowedUser = req.user;
@@ -12,6 +13,7 @@ export const registerIllness = async(req, res) =>{
     try{
         const illnesss = new Illness({name, description, urgencyLevel});
         await illnesss.save();
+        await urgencyLevelModel.findByIdAndUpdate( urgencyLevel, { $push: { illnesses: illnesss._id  } } )
         res.status(200).json({msg: `New Illness registered:`,
             illness:{
                 name: illnesss.name,

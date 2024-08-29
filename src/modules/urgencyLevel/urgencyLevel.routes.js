@@ -7,7 +7,7 @@ import { registerUrgencyLevel, getCategories } from "./urgencyLevel.controller.j
 const router = Router();
 
 router.post(
-    "/create",
+    "/",
     [
         validateJWT,
         check("name", "Urgency Level is required").not().isEmpty(),
@@ -17,7 +17,7 @@ router.post(
 );
 
 router.get(
-    "/get",
+    "/",
     [
         validateJWT,
         validateFields

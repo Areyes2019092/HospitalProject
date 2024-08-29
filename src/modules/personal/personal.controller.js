@@ -137,7 +137,7 @@ export const register = async (req, res) => {
             });
     
             await newUser.save();
-    
+            await urgencyLevelModel.findByIdAndUpdate( urgencyLevel, { $push: { personals: newUser._id } } )
             res.status(200).json({
                 msg: 'User registered successfully',
                 user: {

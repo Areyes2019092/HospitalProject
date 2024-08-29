@@ -10,7 +10,8 @@ const IllnessSchema = new Schema({
         required: [true, "Illness must have a description"]
     },
     urgencyLevel:{
-        type: String,
+        type: Schema.Types.ObjectId,
+        ref: 'Urgency',
         required: [true, "The urgency level of the illness is necessary"]
     }
 });

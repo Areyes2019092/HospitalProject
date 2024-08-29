@@ -10,6 +10,7 @@ import illness from "../src/modules/illness/illness.routes.js";
 import option from "../src/formRelated/Option/option.routes.js"
 import question from "../src/formRelated/Question/question.routes.js";
 import Form from "../src/formRelated/zForm/form.routes.js";
+import Result from "../src/formRelated/result/result.routes.js";
 import { dbConnection } from "./mongo.js";
 
 class Server{
@@ -23,6 +24,7 @@ class Server{
         this.optionPath = "/hospital/form/option";
         this.questionPath = "/hospital/form/question";
         this.formPath = "/hospital/form";
+        this.resultPath = "/hospital/result";
         this.middlewares();
         this.connectDB();
         this.routes();
@@ -52,6 +54,7 @@ class Server{
         this.app.use(this.optionPath, option);
         this.app.use(this.questionPath, question);
         this.app.use(this.formPath, Form);
+        this.app.use(this.resultPath, Result)
       }
 
       listen(){

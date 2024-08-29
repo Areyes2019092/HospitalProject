@@ -7,7 +7,7 @@ import { questionNameExists } from "../../helpers/db-validators.js";
 const router = Router();
 
 router.post(
-    "/postQuestion",
+    "/",
     [
         check("questionName", "The question name is necessary").not().isEmpty(),
         check("questionName").custom(questionNameExists),

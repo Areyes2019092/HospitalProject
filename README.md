@@ -6,4 +6,4 @@ Mongoose's populate is a powerful feature that allows you to automatically repla
 another collection. 
 This is akin to a SQL join, but it's a part of Mongoose's API for MongoDB, a NoSQL database.
 
-JSON path: a tool that help me to navigate through jsons
+JSONpath: a tool that help me to navigate through jsons
